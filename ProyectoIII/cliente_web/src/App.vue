@@ -1,47 +1,49 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from "vue";
+
+const inputString = ref("");
+const stringImpreso = ref("");
+
+const imprimirString = () => {
+  stringImpreso.value = inputString.value;
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>Impresión de String</h1>
+  <div class="inputs">
+    <input type="text" v-model="inputString" placeholder="Ingrese un string">
+    <button @click="imprimirString">Imprimir</button>
+    <p>{{ stringImpreso }}</p>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+h1 {
+  text-align: center;
+  color: darkseagreen;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+input {
+  text-align: center;
+  width: 200px;
+  margin-bottom: 10px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+button {
+  margin-bottom: 10px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+p {
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
