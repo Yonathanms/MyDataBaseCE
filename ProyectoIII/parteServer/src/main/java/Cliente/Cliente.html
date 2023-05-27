@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cliente HTML</title>
+</head>
+<body>
+<button onclick="getInstances()">Obtener instancias</button>
+<button onclick="getInstanceById(1)">Obtener instancia por ID</button>
+<button onclick="createInstance()">Crear instancia</button>
+<button onclick="updateInstance(1)">Actualizar instancia por ID</button>
+<button onclick="deleteInstance(1)">Eliminar instancia por ID</button>
+
+<script>
+  function sendRequest(method, url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        callback(xhr.responseText);
+      } else {
+        console.error('Error: ' + xhr.status);
+      }
+    };
+    xhr.send();
+  }
+
+  function getInstances() {
+    sendRequest('GET', 'http://localhost:8080/api/instances', function (response) {
+      console.log(response); // Aquí puedes manejar la respuesta del servidor
+    });
+  }
+
+  function getInstanceById(id) {
+    sendRequest('GET', 'http://localhost:8080/api/instances/' + id, function (response) {
+      console.log(response); // Aquí puedes manejar la respuesta del servidor
+    });
+  }
+
+  function createInstance() {
+    sendRequest('POST', 'http://localhost:8080/api/instances', function (response) {
+      console.log(response); // Aquí puedes manejar la respuesta del servidor
+    });
+  }
+
+  function updateInstance(id) {
+    sendRequest('PUT', 'http://localhost:8080/api/instances/' + id, function (response) {
+      console.log(response); // Aquí puedes manejar la respuesta del servidor
+    });
+  }
+
+  function deleteInstance(id) {
+    sendRequest('DELETE', 'http://localhost:8080/api/instances/' + id, function (response) {
+      console.log(response); // Aquí puedes manejar la respuesta del servidor
+    });
+  }
+</script>
+</body>
+</html>
