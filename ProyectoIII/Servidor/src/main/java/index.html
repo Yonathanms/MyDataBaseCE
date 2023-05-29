@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cliente</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Cliente</h1>
+<div id="message"></div>
+
+<script>
+  $(document).ready(function() {
+    // Realizar una solicitud GET al servidor
+    $.get("http://localhost:27017/", function(data) {
+      $("#message").text(data);
+    });
+  });
+</script>
+</body>
+</html>
