@@ -1,4 +1,4 @@
-package com.example.Server_SpringBoot;
+package com.example.SpringV5;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(ServerSpringBootApplication.class);
+		return application.sources(SpringV5Application.class);
 	}
 
 }

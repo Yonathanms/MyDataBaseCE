@@ -1,13 +1,13 @@
-package com.example.Server_SpringBoot;
+package com.example.SpringV5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServerSpringBootApplication {
+public class SpringV5Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServerSpringBootApplication.class, args);
+		SpringApplication.run(SpringV5Application.class, args);
 	}
 
 }
