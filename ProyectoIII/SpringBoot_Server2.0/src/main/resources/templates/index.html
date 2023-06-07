@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personas</title>
+    <!-- Bootstrap Css -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<div class="container">
+    <br>
+    <div>
+        <a href="/save/null" class="btn-primary">Agregar</a>
+    </div>
+    <div th:switch="${lista}
+">
+        <h2 th:case="null">No hay personas</h2>
+        <div th:case="*">
+            <h2>Personas</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="persona : ${lista}">
+                    <td th:text="${persona.nombre}"></td>
+                    <td th:text="${persona.apellidos}"></td>
+                    <td th:text="${persona.telefono}"></td>
+                    <td th:text="${persona.direccion}"></td>
+                    <td><a th:href="@{/save/{id}(id=${persona.id})}">Editar</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${persona.id})}">Eliminar</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

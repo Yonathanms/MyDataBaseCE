@@ -1,4 +1,4 @@
-package Repositorios;
+package Repositorios_dao;
 import Modelo.Persona;
 
 //Esta importacion es del crud y es como un tipo de frameworkweb pero local, hace la tarea del Vue

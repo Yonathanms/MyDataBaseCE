@@ -2,7 +2,7 @@ package implementacion;
 
 import MetodosCompartidos.ServiviosGenericosImplementacion;
 import Modelo.Persona;
-import Repositorios.PersonaRepositorioApi;
+import Repositorios_dao.PersonaRepositorioApi;
 import Servicios.PersonaServicioAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
