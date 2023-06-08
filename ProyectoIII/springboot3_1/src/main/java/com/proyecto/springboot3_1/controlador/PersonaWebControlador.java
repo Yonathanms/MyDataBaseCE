@@ -18,40 +18,31 @@ public class PersonaWebControlador {
 
 
     @RequestMapping("/")
-    public String hola_mundo(){
+    public String hola_mundo() {
         return "Hola Mundoo!!";   //metodo de prueba
     }
 
 
     ///metodo de agregar persona
     @PostMapping("/add")
-    public String agregar_Persona(@RequestBody Persona persona){
+    public String agregar_Persona(@RequestBody Persona persona) {
         personaServicio.agregar_persona(persona);
         return "Persona agregada con exito..";
     }
 
     ///metodo de obtener persona segun su id
     @RequestMapping("/consultapersona/{id}")
-    public  Persona get_PersonaID(@PathVariable("id") long id){
-        return personaServicio.get_personaID(id);
+    public Persona verificar_personaID(@PathVariable("id") long id) {
+        return personaServicio.verificar_personaID(id);
     }
 
-    ///metodo de obtener a todas las personas de la BD
-    @RequestMapping("/personas")
-    public List<Persona> get_Personas(){
-        return personaServicio.get_personas();
+    ///metodo que verifica si la persona ya fue registrada
+    @RequestMapping("verificacion/{correo}/{clave}")
+    public Boolean verificar_cuenta(@PathVariable("correo") String correo, @PathVariable("clave") String clave) {
+        return personaServicio.verificar_cuenta(correo,clave);
     }
 
-    ///metodo que actualiza a la persona
-    @PutMapping("/persona")
-    public Persona actualizar_Persona(@RequestBody Persona persona){
-        return personaServicio.actualizar_Persona(persona);
-    }
 
-    ///metodo que elimina a una persona segun su id
-    @DeleteMapping("/eliminarpersona/{id}")
-    public String eliminar_PersonaID(@PathVariable("id") long id){
-        personaServicio.eliminar_personaID(id);
-        return "Persona eliminada con exito..";
-    }
 }
+
+

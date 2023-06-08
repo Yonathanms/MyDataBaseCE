@@ -7,8 +7,6 @@ import com.proyecto.springboot3_1.repositorios.PersonaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PersonaServicioImpl implements PersonaServicio {
 
@@ -23,22 +21,13 @@ public class PersonaServicioImpl implements PersonaServicio {
     }
 
     @Override
-    public Persona get_personaID(long id) {
+    public Persona verificar_personaID(long id) {
         return personaRepositorio.findById(id).get();  //obtiene a una persona segun su "id"
     }
 
     @Override
-    public List<Persona> get_personas() {
-        return (List<Persona>) personaRepositorio.findAll();  //obtiene a todas las personas de la BD
-    }
-
-    @Override
-    public void eliminar_personaID(long id) {
-        personaRepositorio.deleteById(id);  //elimina a una persona dependiendo de su id
-    }
-
-    @Override
-    public Persona actualizar_Persona(Persona persona) {
-        return personaRepositorio.save(persona);  //actualiza a una persona de la base de datos
+    public boolean verificar_cuenta(String correo, String clave) {
+        Persona persona = personaRepositorio.findByCorreoAndClave(correo, clave);
+        return persona != null;
     }
 }

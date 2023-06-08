@@ -14,14 +14,8 @@ public interface PersonaServicio {
     public Persona agregar_persona(Persona persona);
 
     ///metodo para obtener persona segun su id
-    public Persona get_personaID(long id);
+    public Persona verificar_personaID(long id);
 
-    ///metodo para obtener a todas las personas de la base de datos
-    public List<Persona> get_personas();
-
-    ///metodo para eliminar a una persona segun su id
-    public void eliminar_personaID(long id);
-
-    ///metodo para actualizar a una persona
-    public Persona actualizar_Persona(Persona persona);
+    ///metodod para verificar cuenta de persona
+    public boolean verificar_cuenta(String correo, String clave);
 }
