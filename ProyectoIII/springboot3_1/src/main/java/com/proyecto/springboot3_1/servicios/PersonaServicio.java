@@ -18,4 +18,6 @@ public interface PersonaServicio {
 
     ///metodod para verificar cuenta de persona
     public boolean verificar_cuenta(String correo, String clave);
+
+    public List<Persona> get_personas();
 }

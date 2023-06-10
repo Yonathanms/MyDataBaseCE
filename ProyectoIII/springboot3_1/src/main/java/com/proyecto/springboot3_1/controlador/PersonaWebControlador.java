@@ -42,6 +42,12 @@ public class PersonaWebControlador {
         return personaServicio.verificar_cuenta(correo,clave);
     }
 
+    //metodo de prueba
+    ///metodo de obtener a todas las personas de la BD
+    @RequestMapping("/personas")
+    public List<Persona> get_Personas(){
+        return personaServicio.get_personas();
+    }
 
 }
 

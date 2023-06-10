@@ -7,6 +7,8 @@ import com.proyecto.springboot3_1.repositorios.PersonaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PersonaServicioImpl implements PersonaServicio {
 
@@ -30,4 +32,10 @@ public class PersonaServicioImpl implements PersonaServicio {
         Persona persona = personaRepositorio.findByCorreoAndClave(correo, clave);
         return persona != null;
     }
+    @Override
+    public List<Persona> get_personas() {
+        return (List<Persona>) personaRepositorio.findAll();  //obtiene a todas las personas de la BD
+    }
+
+
 }

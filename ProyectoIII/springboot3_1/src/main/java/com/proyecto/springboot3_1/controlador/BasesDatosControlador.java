@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -380,9 +381,6 @@ public class BasesDatosControlador {
     @PostMapping("/UPDATEinstancias")
     public void actualizar_instancias(@RequestBody JsonNode datos) {
         String nombreCarpeta = datos.get("nombreCarpeta").asText();
-        String campo = datos.get("campo").asText();
-       // String operador = datos.get("operador").asText();
-        String valor = datos.get("valor").asText();
         String nuevoContenido = datos.get("nuevoContenido").asText();
 
         String rutaCarpeta = RUTA_BASE + nombreCarpeta + "/";
@@ -395,45 +393,39 @@ public class BasesDatosControlador {
         }
 
         // Obtener la lista de archivos en la carpeta
-        File[] archivos = carpeta.listFiles();
+        File[] archivos = carpeta.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String nombre) {
+                return nombre.toLowerCase().endsWith(".xml");
+            }
+        });
+
         if (archivos == null || archivos.length == 0) {
             System.out.println("La carpeta está vacía, no hay instancias para actualizar");
             return;
         }
 
-        // Actualizar las instancias que cumplan con la condición
+        // Actualizar todas las instancias
         int contadorActualizaciones = 0;
         for (File archivo : archivos) {
             if (archivo.isFile()) {
-                String contenido;
                 try {
-                    contenido = new String(Files.readAllBytes(archivo.toPath()));
+                    FileWriter writer = new FileWriter(archivo);
+                    writer.write(nuevoContenido);
+                    writer.close();
+                    System.out.println("Instancia actualizada: " + archivo.getName());
+                    contadorActualizaciones++;
                 } catch (IOException e) {
-                    System.out.println("Error al leer el archivo: " + archivo.getName());
-                    continue;
-                }
-
-                if (cumpleCondicion(contenido, campo, "=", valor)) {
-                    try {
-                        FileWriter writer = new FileWriter(archivo);
-                        writer.write(nuevoContenido);
-                        writer.close();
-                        System.out.println("Instancia actualizada: " + archivo.getName());
-                        contadorActualizaciones++;
-                    } catch (IOException e) {
-                        System.out.println("Error al actualizar la instancia: " + archivo.getName());
-                    }
+                    System.out.println("Error al actualizar la instancia: " + archivo.getName());
                 }
             }
         }
 
         if (contadorActualizaciones == 0) {
-            System.out.println("No se encontraron instancias que cumplan con la condición");
+            System.out.println("No se encontraron instancias para actualizar");
         } else {
             System.out.println("Total de instancias actualizadas: " + contadorActualizaciones);
         }
     }
-
     /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
     ///metodo de actualizar una instancia usando la logica de UPDATE
