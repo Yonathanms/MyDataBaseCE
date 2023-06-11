@@ -4,10 +4,7 @@ package com.proyecto.springboot3_1.controlador;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.nio.file.Files;
-
+import com.fazecast.jSerialComm.SerialPort;
 
 @RestController
 public class BasesDatosControlador {
@@ -400,13 +397,69 @@ public class BasesDatosControlador {
                 }
             }
         }
+        if (contadorEliminaciones > 1) {
+            encenderLED();
 
-        if (contadorEliminaciones == 0) {
-            System.out.println("No se encontraron instancias que cumplan con las condiciones");
-        } else {
-            System.out.println("Total de instancias eliminadas: " + contadorEliminaciones);
         }
     }
+
+    //método complementario arduino
+
+
+    private static void encenderLED() {
+
+        final String PUERTO_SERIAL = "COM3";
+        // Definir el tiempo de espera para establecer la conexión (en milisegundos)
+        final int TIMEOUT = 2000;
+        // Definir el tiempo de espera entre el encendido y apagado del LED (en milisegundos)
+        final int DELAY_LED = 1000;
+        // Obtener la instancia del puerto serial
+        SerialPort puertoSerial = null;
+        SerialPort[] puertos = SerialPort.getCommPorts();
+        for (SerialPort puerto : puertos) {
+            if (puerto.getSystemPortName().equals(PUERTO_SERIAL)) {
+                puertoSerial = puerto;
+                break;
+            }
+        }
+
+        if (puertoSerial == null) {
+            System.out.println("No se pudo encontrar el puerto serial: " + PUERTO_SERIAL);
+            return;
+        }
+
+        try {
+            // Abrir el puerto serial
+            puertoSerial.openPort();
+            // Configurar los parámetros del puerto serial
+            puertoSerial.setBaudRate(9600);
+            puertoSerial.setNumDataBits(8);
+            puertoSerial.setNumStopBits(SerialPort.ONE_STOP_BIT);
+            puertoSerial.setParity(SerialPort.NO_PARITY);
+
+            // Obtener el flujo de salida del puerto serial
+            OutputStream outputStream = puertoSerial.getOutputStream();
+
+            // Encender el LED
+            outputStream.write('H'); // Enviar un carácter 'H' al Arduino para encender el LED
+            outputStream.flush();
+            Thread.sleep(DELAY_LED);
+            outputStream.write('L'); // Enviar un carácter 'L' al Arduino para apagar el LED
+            outputStream.flush();
+
+            // Cerrar el flujo de salida y el puerto serial
+            outputStream.close();
+            puertoSerial.closePort();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
 
     /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
