@@ -11,11 +11,11 @@
           <label for="clave">Clave:</label>
           <input type="password" id="clave" v-model="clave" required>
         </div>
-        <div>
+        <div class="buttons-container">
           <button type="submit">Iniciar sesión</button>
         </div>
       </form>
-
+      <p v-if="errorMensaje" class="error-message">{{ errorMensaje }}</p>
       <button @click="mostrarComponenteRegistro">Registrar</button>
     </div>
 
@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+/// logica de las componentes
+/// constantes que ingresan en la función del Spring-boot utilizando peticions http por medio de la librería Vue Axios
 import { ref } from "vue";
 import axios from "axios";
 import Registro from "./Registro.vue";
@@ -36,6 +38,7 @@ const correo = ref("");
 const clave = ref("");
 const mostrarComponenteInicioSesion = ref(true);
 const personaEncontrada = ref(false);
+const errorMensaje = ref("");
 
 const verificarCuenta = () => {
   const url = `http://localhost:8080/verificacion/${correo.value}/${clave.value}`;
@@ -50,7 +53,7 @@ const verificarCuenta = () => {
           mostrarComponenteInicioSesion.value = false;
         } else {
           console.log("La persona no existe en la base de datos");
-          // Realiza las acciones necesarias si la persona no existe
+          errorMensaje.value = "Correo o clave incorrectos";
         }
 
         // Limpia los campos de formulario
@@ -59,11 +62,13 @@ const verificarCuenta = () => {
       })
       .catch((error) => {
         console.error(error);
+        errorMensaje.value = "Error al iniciar sesión";
       });
 };
 
 const mostrarComponenteRegistro = () => {
   mostrarComponenteInicioSesion.value = false;
+  errorMensaje.value = "";
 };
 
 const registroCompletado = () => {
@@ -72,6 +77,7 @@ const registroCompletado = () => {
 </script>
 
 <style>
+/// Estilos Css de las componentes
 h1 {
   text-align: center;
   color: darkseagreen;
@@ -85,6 +91,7 @@ form {
 
 label {
   margin-top: 10px;
+  display: block;
 }
 
 input {
@@ -92,7 +99,21 @@ input {
   margin-top: 5px;
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 button {
+  width: 120px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
   margin-top: 10px;
 }
 </style>

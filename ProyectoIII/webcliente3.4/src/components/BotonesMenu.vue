@@ -2,13 +2,15 @@
   <div>
     <h1>Manejo de métodos de Base de Datos-Proyecto III</h1>
 
-    <button @click="mostrarAgregarInstancia">Agregar Instancias</button>
-    <button @click="buscarInstanciasSelect">Buscar Instancias (Select)</button>
-    <button @click="buscarInstanciasJoin">Buscar Instancias (Join)</button>
-    <button @click="eliminarUnaInstancia">Eliminar una instancia</button>
-    <button @click="eliminarInstancias">Eliminar instancias</button>
-    <button @click="actualizarInstancias">Actualizar instancias</button>
-    <button @click="actualizarUnaInstancia">Actualizar una instancia</button>
+    <div class="button-container">
+      <button @click="mostrarAgregarInstancia">Agregar Instancias</button>
+      <button @click="buscarInstanciasSelect">Buscar Instancias (Select)</button>
+      <button @click="buscarInstanciasJoin">Buscar Instancias (Join)</button>
+      <button @click="eliminarUnaInstancia">Eliminar una instancia</button>
+      <button @click="eliminarInstancias">Eliminar instancias</button>
+      <button @click="actualizarInstancias">Actualizar instancias</button>
+      <button @click="actualizarUnaInstancia">Actualizar una instancia</button>
+    </div>
 
     <AgregarInstancia v-if="mostrarComponenteAgregarInstancia" />
     <BuscarInstanciaSELECT v-if="mostrarComponenteBuscarInstanciaSELECT"/>
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+/// importaciones de componetnes
 import AgregarInstancia from "./AgregarInstancia.vue";
 import BuscarInstanciaSELECT from "@/components/BuscarInstanciaSELECT.vue";
 import BuscarInstanciasJOIN from "@/components/BuscarInstanciasJOIN.vue";

@@ -26,6 +26,8 @@
 </template>
 
 <script>
+/// logica de las componentes
+/// constantes que ingresan en la función del Spring-boot utilizando peticions http por medio de la librería Vue Axios
 import { ref, onMounted, getCurrentInstance } from "vue";
 import axios from "axios";
 
@@ -89,6 +91,7 @@ export default {
 </script>
 
 <style>
+/// Estilos Css de las componentes
 h1 {
   text-align: center;
   color: darkseagreen;

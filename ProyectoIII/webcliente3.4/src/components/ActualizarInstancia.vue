@@ -18,10 +18,13 @@
   </div>
 </template>
 
+
 <script setup>
+//logica de la componente
 import { ref } from 'vue';
 import axios from 'axios';
 
+//constantes que ingresan en la función del Spring-Boot
 const nombreCarpeta = ref('');
 const atributoInstancias = ref('');
 const valorAtributo = ref('');
@@ -50,15 +53,17 @@ const actualizar = () => {
 </script>
 
 <style scoped>
-/* Estilos específicos de la componente */
 label {
   margin-top: 10px;
+  text-align: center;
 }
 
 input {
   width: 200px;
   margin-top: 5px;
-  display: block; /* Hace que las cajas de texto se muestren en una línea separada */
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
 }
 
 button {

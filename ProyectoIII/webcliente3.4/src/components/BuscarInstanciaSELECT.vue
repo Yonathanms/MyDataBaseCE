@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+/// logica de las componentes
+/// constantes que ingresan en la función del Spring-boot utilizando peticions http por medio de la librería Vue Axios
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -52,11 +54,15 @@ const buscar = () => {
 label {
   display: block;
   margin-top: 10px;
+  text-align: center;
 }
 
 input {
   width: 200px;
   margin-top: 5px;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
 }
 
 button {

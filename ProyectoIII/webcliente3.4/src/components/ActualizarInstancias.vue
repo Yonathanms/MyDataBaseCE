@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+/// lógica de las componentes
+/// constantes que ingresan en la función del Spring-boot utilizando peticions http por medio de la librería Vue Axios
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -44,15 +46,17 @@ const actualizarInstancias = () => {
 </script>
 
 <style scoped>
-/* Estilos específicos de la componente */
 label {
   margin-top: 10px;
+  text-align: center;
 }
 
 input {
   width: 200px;
   margin-top: 5px;
-  display: block; /* Hace que las cajas de texto se muestren en una línea separada */
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
 }
 
 button {

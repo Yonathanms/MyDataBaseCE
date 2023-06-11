@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+/// logica de las componentes
+/// constantes que ingresan en la función del Spring-boot utilizando peticions http por medio de la librería Vue Axios
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -42,16 +44,21 @@ const commit = () => {
   instanciaDeseada.value = '';
 };
 </script>
+/// Estilos Css de las componentes
 
 <style scoped>
 label {
   display: block;
   margin-top: 10px;
+  text-align: center;
 }
 
 input {
   width: 200px;
   margin-top: 5px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 button {
