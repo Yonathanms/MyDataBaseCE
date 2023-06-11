@@ -176,6 +176,10 @@ public class BasesDatosControlador {
         String nombreCarpeta2 = datos.get("nombreCarpeta2").asText();
         String campo = datos.get("campo").asText();
         String valor = datos.get("valor").asText();
+        String campo2 = datos.get("campo2").asText();
+        String valor2 = datos.get("valor2").asText();
+        String campo3 = datos.get("campo3").asText();
+        String valor3 = datos.get("valor3").asText();
 
         String rutaCarpeta1 = RUTA_BASE + nombreCarpeta1 + "/";
         String rutaCarpeta2 = RUTA_BASE + nombreCarpeta2 + "/";
@@ -192,7 +196,7 @@ public class BasesDatosControlador {
 
         List<String> instanciasEncontradas = new ArrayList<>();
 
-        // Recorrer cada archivo XML del primer XML store y buscar instancias que cumplan con las condiciones
+        // Recorrer cada archivo XML del primer XML store y buscar instancias que cumplan con al menos una de las condiciones
         for (File archivoXml1 : archivosXml1) {
             try {
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -202,7 +206,7 @@ public class BasesDatosControlador {
 
                 NodeList nodosInstancia1 = documento1.getElementsByTagName("instancia");
 
-                // Recorrer cada archivo XML del segundo XML store y buscar instancias que cumplan con las condiciones
+                // Recorrer cada archivo XML del segundo XML store y buscar instancias que cumplan con al menos una de las condiciones
                 for (File archivoXml2 : archivosXml2) {
                     Document documento2 = dBuilder.parse(archivoXml2);
                     documento2.getDocumentElement().normalize();
@@ -217,15 +221,42 @@ public class BasesDatosControlador {
                             String valorCampo1 = elementoInstancia1.getElementsByTagName(campo).item(0).getTextContent();
                             boolean cumpleCondicion1 = evaluarCondicion(valorCampo1, "=", valor);
 
-                            if (cumpleCondicion1) {
+                            // Si se proporcionó el segundo campo de búsqueda, verificar si cumple la condición
+                            boolean cumpleCondicion2 = true;
+                            if (campo2 != null && "=" != null && valor2 != null) {
+                                String valorCampo2 = elementoInstancia1.getElementsByTagName(campo2).item(0).getTextContent();
+                                cumpleCondicion2 = evaluarCondicion(valorCampo2, "=", valor2);
+                            }
+
+                            // Si se proporcionó el tercer campo de búsqueda, verificar si cumple la condición
+                            boolean cumpleCondicion3 = true;
+                            if (campo3 != null && "=" != null && valor3 != null) {
+                                String valorCampo3 = elementoInstancia1.getElementsByTagName(campo3).item(0).getTextContent();
+                                cumpleCondicion3 = evaluarCondicion(valorCampo3, "=", valor3);
+                            }
+
+                            // Verificar si al menos una condición se cumple y agregar la instancia encontrada
+                            if (cumpleCondicion1 || cumpleCondicion2 || cumpleCondicion3) {
                                 for (int j = 0; j < nodosInstancia2.getLength(); j++) {
                                     Node nodo2 = nodosInstancia2.item(j);
                                     if (nodo2.getNodeType() == Node.ELEMENT_NODE) {
                                         Element elementoInstancia2 = (Element) nodo2;
                                         String valorCampo2 = elementoInstancia2.getElementsByTagName(campo).item(0).getTextContent();
-                                        boolean cumpleCondicion2 = evaluarCondicion(valorCampo2, "=", valor);
+                                        boolean cumpleCondicion2_2 = evaluarCondicion(valorCampo2, "=", valor);
 
-                                        if (cumpleCondicion2) {
+                                        boolean cumpleCondicion2_3 = true;
+                                        if (campo2 != null && "=" != null && valor2 != null) {
+                                            String valorCampo2_2 = elementoInstancia2.getElementsByTagName(campo2).item(0).getTextContent();
+                                            cumpleCondicion2_3 = evaluarCondicion(valorCampo2_2, "=", valor2);
+                                        }
+
+                                        boolean cumpleCondicion2_4 = true;
+                                        if (campo3 != null && "=" != null && valor3 != null) {
+                                            String valorCampo2_3 = elementoInstancia2.getElementsByTagName(campo3).item(0).getTextContent();
+                                            cumpleCondicion2_4 = evaluarCondicion(valorCampo2_3, "=", valor3);
+                                        }
+
+                                        if (cumpleCondicion2_2 || cumpleCondicion2_3 || cumpleCondicion2_4) {
                                             String instancia = obtenerInstanciaComoTexto2(elementoInstancia1, elementoInstancia2);
                                             instanciasEncontradas.add(instancia);
                                         }
@@ -243,14 +274,15 @@ public class BasesDatosControlador {
         if (instanciasEncontradas.isEmpty()) {
             return "No se encontraron instancias que cumplan las condiciones.";
         } else {
-            StringBuilder resultado = new StringBuilder();
-            resultado.append("Instancias encontradas:\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Instancias encontradas:\n");
             for (String instancia : instanciasEncontradas) {
-                resultado.append(instancia).append("\n");
+                sb.append(instancia).append("\n");
             }
-            return resultado.toString();
+            return sb.toString();
         }
     }
+
 
 
     ///metodo complementario
