@@ -6,13 +6,25 @@
     <label>Nombre de la Carpeta 2</label>
     <input type="text" v-model="nombreCarpeta2">
 
-    <label>Atributos de las instancias</label>
-    <input type="text" v-model="atributosInstancias">
+    <label>Atributo 1</label>
+    <input type="text" v-model="atributo1">
 
-    <label>Valor de búsqueda</label>
-    <input type="text" v-model="valorBusqueda">
+    <label>Valor del Atributo 1</label>
+    <input type="text" v-model="valorAtributo1">
 
-    <button @click="buscar">Buscar</button>
+    <label>Atributo 2</label>
+    <input type="text" v-model="atributo2">
+
+    <label>Valor del Atributo 2</label>
+    <input type="text" v-model="valorAtributo2">
+
+    <label>Atributo 3</label>
+    <input type="text" v-model="atributo3">
+
+    <label>Valor del Atributo 3</label>
+    <input type="text" v-model="valorAtributo3">
+
+    <button @click="buscar">Buscar Instancias</button>
 
     <label>{{ resultadoBusqueda }}</label>
   </div>
@@ -24,8 +36,12 @@ import axios from "axios";
 
 const nombreCarpeta1 = ref("");
 const nombreCarpeta2 = ref("");
-const atributosInstancias = ref("");
-const valorBusqueda = ref("");
+const atributo1 = ref("");
+const valorAtributo1 = ref("");
+const atributo2 = ref("");
+const valorAtributo2 = ref("");
+const atributo3 = ref("");
+const valorAtributo3 = ref("");
 const resultadoBusqueda = ref("");
 
 const buscar = () => {
@@ -33,8 +49,12 @@ const buscar = () => {
   const data = {
     nombreCarpeta1: nombreCarpeta1.value,
     nombreCarpeta2: nombreCarpeta2.value,
-    campo: atributosInstancias.value,
-    valor: valorBusqueda.value
+    campo: atributo1.value,
+    valor: valorAtributo1.value,
+    campo2: atributo2.value,
+    valor2: valorAtributo2.value,
+    campo3: atributo3.value,
+    valor3: valorAtributo3.value
   };
 
   axios.post(url, data)
